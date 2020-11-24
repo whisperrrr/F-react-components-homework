@@ -28,9 +28,18 @@ class Chat extends Component {
   }
 
   handleSendMessage = (message) => {
-    // eslint-disable-next-line react/no-access-state-in-setstate
     const updatedMessages = this.state.messages.concat(message);
-    this.setState({ messages: updatedMessages });
+    const responseMessage = this.responseToLastMessage(message);
+    const finalMessage =
+      typeof responseMessage === 'undefined'
+        ? updatedMessages
+        : updatedMessages.concat(responseMessage);
+
+    this.setState({ messages: finalMessage });
+  };
+
+  responseToLastMessage = (message) => {
+    return answersData.find((answer) => answer.tags.includes(message.text));
   };
 
   render() {
