@@ -27,13 +27,19 @@ class Chat extends Component {
     }, 1000);
   }
 
+  handleSendMessage = (message) => {
+    // eslint-disable-next-line react/no-access-state-in-setstate
+    const updatedMessages = this.state.messages.concat(message);
+    this.setState({ messages: updatedMessages });
+  };
+
   render() {
     const { shop, messages } = this.state;
     return (
       <main className="Chat">
         <ChatHeader shop={shop} />
         <ChatBox messages={messages} />
-        <ChatInput />
+        <ChatInput onSend={this.handleSendMessage} />
       </main>
     );
   }
